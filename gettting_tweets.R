@@ -31,7 +31,7 @@ best_tweet <- function(handle) {
   tweets <- userTimeline(handle, 300)
   
   #filter tweet history for only "yesterday's" tweets (assumes call in morning)
-  tweetsToday <- Filter(function(x) {x$created > as.POSIXct(today() - 1)}, tweets)
+  tweets <- Filter(function(x) {x$created > as.POSIXct(today() - 1)}, tweets)
   
   #pull RT and Fav data per tweet 
   rtVec <-  sapply(tweets, FUN = function(x) {x$getRetweetCount()})
@@ -43,3 +43,6 @@ best_tweet <- function(handle) {
   #return the list item with the index corresponding to the max tweet score
   return (tweets[[which.max(tweetScore)]])
 }
+
+
+
