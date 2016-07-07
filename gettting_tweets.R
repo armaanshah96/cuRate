@@ -16,8 +16,18 @@ get_tweets <- function(list_names) {
   access_secret = "secret"
   setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
   
+  #tokenize twitter handles 
+  list_names <- sub("@", "", list_names)
+  
+  #error check handle names 
+  clean_list = c();
+  for (i in 1:length(list_names)) {
+    if (filter(list_names[i])) 
+      clean_list <- c(clean_list, list_names[i])
+  }
+  
   #create list of best tweets
-  best <- lapply(list_names, FUN = function(x) {best_tweet(x)})
+  best <- lapply(clean_list, FUN = function(x) {best_tweet(x)})
   
   #return list?
   return (best)
@@ -44,5 +54,21 @@ best_tweet <- function(handle) {
   return (tweets[[which.max(tweetScore)]])
 }
 
+
+
+#' @param handle Twitter handle provided as a character vector. Does not begin with the '@' symbol.
+#' @return Returns TRUE if the handle was valid, FALSE if that user does not exist on Twitter.
+#' @example 
+#' filter("nasa")
+filter <- function(handle) {
+  tryCatch({
+    lookupUsers(handle)
+    return(TRUE)
+  }, error = function(e) {
+    message(paste("Warning:", handle, "is not a valid handle. It was removed from your list of selections."))
+    return(FALSE)
+  }, finally = {}
+  )
+}
 
 
