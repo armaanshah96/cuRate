@@ -16,7 +16,7 @@ get_tweets <- function(list_names) {
   access_secret = "secret"
   setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
   
-  #tokenize twitter handles 
+  #remove @ from handles 
   list_names <- sub("@", "", list_names)
   
   #error check handle names 
