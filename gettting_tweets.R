@@ -10,10 +10,10 @@ get_tweets <- function(list_names) {
   library(lubridate)
   
   #Set up Twitter REST api access (from Graham's account):
-  consumer_key = "LLS5lgR6Kbc7PKntSO0IE3G8g"
-  consumer_secret = "AtQQEDuVGZoeUglGTbL0H5ItTBCmQnrravP0FQdvS7EkaSirTa"
-  access_token = "601653919-jn1NWuyYm8u9FZUVt0LenXfm4pwxiOmAgAc07mdX"
-  access_secret = "FRJ3LH9uEh9d1h0IwXNv7BU4aL4X2c9ugq5zDXX6duywy"
+  consumer_key = "key"
+  consumer_secret = "secret"
+  access_token = "token"
+  access_secret = "secret"
   setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
   
   #create list of best tweets
