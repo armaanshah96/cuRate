@@ -1,6 +1,6 @@
-#' @param list_names Vector of Twitter handles. Each element of the list is one handle starting with '@' symbol.
+#' @param list_names String of Twitter handles. Each handle starts with '@' symbol and is separated by a space.
 #' @return returns a vector of the top tweets of the day from each handle. Each tweet corresponds to the index of the inputted Twitter handles
-#' get_tweets(c("@DonaldTrump","@CNN","@FoxNews"))
+#' get_tweets("@realDonaldTrump @CNN @FoxNews")
 #' 
 get_tweets <- function(list_names) {
   
@@ -10,19 +10,21 @@ get_tweets <- function(list_names) {
   library(lubridate)
   
   #Set up Twitter REST api access (from Graham's account):
-  consumer_key = "key"
-  consumer_secret = "secret"
-  access_token = "token"
-  access_secret = "secret"
+  consumer_key = "LLS5lgR6Kbc7PKntSO0IE3G8g"
+  consumer_secret = "AtQQEDuVGZoeUglGTbL0H5ItTBCmQnrravP0FQdvS7EkaSirTa"
+  access_token = "601653919-jn1NWuyYm8u9FZUVt0LenXfm4pwxiOmAgAc07mdX"
+  access_secret = "FRJ3LH9uEh9d1h0IwXNv7BU4aL4X2c9ugq5zDXX6duywy"
   setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
   
-  #remove @ from handles 
-  list_names <- sub("@", "", list_names)
+  #transform input string into a character vector and strip @ from beginning 
+  list_names <- strsplit(list_names, "\\s")[[1]]
+  list_names <- gsub("[,@]","", list_names)
+  list_names <- list_names[list_names != ""]
   
   #error check handle names 
   clean_list = c();
   for (i in 1:length(list_names)) {
-    if (filter(list_names[i])) 
+    if (verify_handle(list_names[i])) 
       clean_list <- c(clean_list, list_names[i])
   }
   
@@ -33,7 +35,7 @@ get_tweets <- function(list_names) {
   return (best)
 }
 
-#' @param handle Twitter handle provided as a character vector. Handle begins with '@' symbol.
+#' @param handle Twitter handle provided as a character vector. 
 #' @return returns the tweet that was most popular for the day 
 best_tweet <- function(handle) {
 
@@ -42,6 +44,12 @@ best_tweet <- function(handle) {
   
   #filter tweet history for only "yesterday's" tweets (assumes call in morning)
   tweets <- Filter(function(x) {x$created > as.POSIXct(today() - 1)}, tweets)
+  
+  #return a warning message if a handle has no tweets
+  if (is.null(tweets[1][[1]])) {
+    no_tweets <- paste(handle, "has not posted any tweets.", sep = " ")
+    return(no_tweets)
+  }
   
   #pull RT and Fav data per tweet 
   rtVec <-  sapply(tweets, FUN = function(x) {x$getRetweetCount()})
@@ -60,7 +68,7 @@ best_tweet <- function(handle) {
 #' @return Returns TRUE if the handle was valid, FALSE if that user does not exist on Twitter.
 #' @example 
 #' filter("nasa")
-filter <- function(handle) {
+verify_handle <- function(handle) {
   tryCatch({
     lookupUsers(handle)
     return(TRUE)
