@@ -67,7 +67,7 @@ best_tweet <- function(handle) {
 #' @param handle Twitter handle provided as a character vector. Does not begin with the '@' symbol.
 #' @return Returns TRUE if the handle was valid, FALSE if that user does not exist on Twitter.
 #' @example 
-#' filter("nasa")
+#' verify_handle("nasa")
 verify_handle <- function(handle) {
   tryCatch({
     lookupUsers(handle)
