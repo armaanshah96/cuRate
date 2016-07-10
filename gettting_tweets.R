@@ -1,11 +1,6 @@
 #' @param list_names String of Twitter handles. Each handle starts with '@' symbol and is separated by a space.
 #' @return returns a vector of the top tweets of the day from each handle. Each tweet corresponds to the index of the inputted Twitter handles
-<<<<<<< HEAD
 #' get_tweets(c("@RealDonaldTrump","@CNN","@FoxNews"))
-=======
-#' get_tweets("@realDonaldTrump @CNN @FoxNews")
->>>>>>> 24ea6f8b7ac26dcbf318bbbeb121142ffacd3c1d
-#' 
 get_tweets <- function(list_names) {
   
   #load twitteR package
@@ -14,19 +9,19 @@ get_tweets <- function(list_names) {
   library(lubridate)
   library(stringr)
   
-<<<<<<< HEAD
-  #remove @ from handles 
-  list_names <- gsub("@", "", list_names)
+  #Set up Twitter REST api access (from Graham's account):
+  consumer_key = "LLS5lgR6Kbc7PKntSO0IE3G8g"
+  consumer_secret = "AtQQEDuVGZoeUglGTbL0H5ItTBCmQnrravP0FQdvS7EkaSirTa"
+  access_token = "601653919-jn1NWuyYm8u9FZUVt0LenXfm4pwxiOmAgAc07mdX"
+  access_secret = "FRJ3LH9uEh9d1h0IwXNv7BU4aL4X2c9ugq5zDXX6duywy"
+  setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
   
-  #turn string list into a list of length 1: chr vector of handles 
-  list_names <- str_split(list_names, ", ")
-=======
+
   #transform input string into a character vector and strip @ from beginning 
   list_names <- strsplit(list_names, "\\s")[[1]]
   list_names <- gsub("[,@]","", list_names)
   list_names <- list_names[list_names != ""]
->>>>>>> 24ea6f8b7ac26dcbf318bbbeb121142ffacd3c1d
-  
+
   #error check handle names 
   clean_list = c();
   for (i in 1:length(list_names)) {
@@ -35,7 +30,7 @@ get_tweets <- function(list_names) {
   }
   
   #create list of best tweets
-  best <- lapply(clean_list[[1]], FUN = function(x) {best_tweet(x)})
+  best <- lapply(clean_list, FUN = function(x) {best_tweet(x)})
   
   #return list?
   return (best)
@@ -53,7 +48,7 @@ best_tweet <- function(handle) {
   
   #return a warning message if a handle has no tweets
   if (is.null(tweets[1][[1]])) {
-    no_tweets <- paste(handle, "has not posted any tweets.", sep = " ")
+    no_tweets <- paste(paste("@", handle, sep = ""), "has not posted any tweets in the last day.", sep = " ")
     return(no_tweets)
   }
   
@@ -68,6 +63,35 @@ best_tweet <- function(handle) {
   return (tweets[[which.max(tweetScore)]])
 }
 
+#' @param tweets List of accounts' best tweet' objects from twitteR package 
+#' @return character vector formatted to be sent to slack channel via bot
+create_message <- function(tweets){
+  
+  #create blank message
+  message <- ""
+  
+  #for all usernames in list:
+  for (c in tweets){
+    #if username hasn't tweeted in past day, add error message to message 
+    if(class(c) == 'character'){
+      message <- paste(message, paste("\n", c, sep = ""), sep ="")
+    }
+    
+    #if user has tweeted, add username and text of best tweet to message 
+    else{
+      username <- paste("\n@", c$screenName, sep = "")
+      username <- paste(username, ": ", sep = "")
+      message <- paste(message, username, sep = "")
+      message <- paste(message, paste("\n", c$text, sep = ""))
+    }
+    
+    #after every type of message, seperate with blank line for readability 
+    message <- paste(message, "\n", sep ="")
+  }
+  
+  #return the message string in its entirity
+  return(message)
+}
 
 
 #' @param handle Twitter handle provided as a character vector. Does not begin with the '@' symbol.
@@ -84,5 +108,4 @@ verify_handle <- function(handle) {
   }, finally = {}
   )
 }
-
 
