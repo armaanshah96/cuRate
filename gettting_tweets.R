@@ -1,6 +1,10 @@
-#' @param list_names Vector of Twitter handles. Each element of the list is one handle starting with '@' symbol.
+#' @param list_names String of Twitter handles. Each handle starts with '@' symbol and is separated by a space.
 #' @return returns a vector of the top tweets of the day from each handle. Each tweet corresponds to the index of the inputted Twitter handles
+<<<<<<< HEAD
 #' get_tweets(c("@RealDonaldTrump","@CNN","@FoxNews"))
+=======
+#' get_tweets("@realDonaldTrump @CNN @FoxNews")
+>>>>>>> 24ea6f8b7ac26dcbf318bbbeb121142ffacd3c1d
 #' 
 get_tweets <- function(list_names) {
   
@@ -10,16 +14,23 @@ get_tweets <- function(list_names) {
   library(lubridate)
   library(stringr)
   
+<<<<<<< HEAD
   #remove @ from handles 
   list_names <- gsub("@", "", list_names)
   
   #turn string list into a list of length 1: chr vector of handles 
   list_names <- str_split(list_names, ", ")
+=======
+  #transform input string into a character vector and strip @ from beginning 
+  list_names <- strsplit(list_names, "\\s")[[1]]
+  list_names <- gsub("[,@]","", list_names)
+  list_names <- list_names[list_names != ""]
+>>>>>>> 24ea6f8b7ac26dcbf318bbbeb121142ffacd3c1d
   
   #error check handle names 
   clean_list = c();
   for (i in 1:length(list_names)) {
-    if (filter(list_names[i])) 
+    if (verify_handle(list_names[i])) 
       clean_list <- c(clean_list, list_names[i])
   }
   
@@ -30,7 +41,7 @@ get_tweets <- function(list_names) {
   return (best)
 }
 
-#' @param handle Twitter handle provided as a character vector. Handle begins with '@' symbol.
+#' @param handle Twitter handle provided as a character vector. 
 #' @return returns the tweet that was most popular for the day 
 best_tweet <- function(handle) {
 
@@ -39,6 +50,12 @@ best_tweet <- function(handle) {
   
   #filter tweet history for only "yesterday's" tweets (assumes call in morning)
   tweets <- Filter(function(x) {x$created > as.POSIXct(today() - 1)}, tweets)
+  
+  #return a warning message if a handle has no tweets
+  if (is.null(tweets[1][[1]])) {
+    no_tweets <- paste(handle, "has not posted any tweets.", sep = " ")
+    return(no_tweets)
+  }
   
   #pull RT and Fav data per tweet 
   rtVec <-  sapply(tweets, FUN = function(x) {x$getRetweetCount()})
@@ -56,8 +73,8 @@ best_tweet <- function(handle) {
 #' @param handle Twitter handle provided as a character vector. Does not begin with the '@' symbol.
 #' @return Returns TRUE if the handle was valid, FALSE if that user does not exist on Twitter.
 #' @example 
-#' filter("nasa")
-filter <- function(handle) {
+#' verify_handle("nasa")
+verify_handle <- function(handle) {
   tryCatch({
     lookupUsers(handle)
     return(TRUE)
