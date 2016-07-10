@@ -1,7 +1,7 @@
 #' @param list_names String of Twitter handles. Each handle starts with '@' symbol and is separated by a space.
 #' @return returns a vector of the top tweets of the day from each handle. Each tweet corresponds to the index of the inputted Twitter handles
-#' get_tweets(c("@RealDonaldTrump","@CNN","@FoxNews"))
-get_tweets <- function(list_names) {
+#' get_tweets("@cnn, @foxnews, @realdonaldtrump, @hillaryclinton")
+get_tweets <- function(list_names = "@cnn, @foxnews, @realdonaldtrump, @hillaryclinton") {
   
   #load twitteR package
   library(twitteR)
@@ -15,7 +15,6 @@ get_tweets <- function(list_names) {
   access_token = ""
   access_secret = ""
   setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
-  
 
   #transform input string into a character vector and strip @ from beginning 
   list_names <- strsplit(list_names, "\\s")[[1]]
@@ -108,4 +107,16 @@ verify_handle <- function(handle) {
   }, finally = {}
   )
 }
+
+slack_tweets <- function(message){
+  library(slackr)
+  token <- 'token here'
+  slackr_setup(channel = "#bot-test", username = "testbot", api_token = token)
+  text_slackr(message)
+}
+
+
+#script to run w/ cron automation
+slack_tweets("@iXperienceCT, @datawookie, @wuthemasses, @hadleywickham")
+
 
