@@ -1,5 +1,5 @@
 library(slackr)
-token <- "xoxb-57717822598-VZlNktXv8KM5qxXT9VY3GxzF"
+token <- 'token goes here'
 slackr_setup(channel = "#bot", username = "testbot", api_token = token)
 slackr_bot(message = "test")
 library(RCurl)
