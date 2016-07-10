@@ -1,6 +1,6 @@
 #' @param list_names Vector of Twitter handles. Each element of the list is one handle starting with '@' symbol.
 #' @return returns a vector of the top tweets of the day from each handle. Each tweet corresponds to the index of the inputted Twitter handles
-#' get_tweets(c("@DonaldTrump","@CNN","@FoxNews"))
+#' get_tweets(c("@RealDonaldTrump","@CNN","@FoxNews"))
 #' 
 get_tweets <- function(list_names) {
   
@@ -8,16 +8,13 @@ get_tweets <- function(list_names) {
   library(twitteR)
   library(dplyr)
   library(lubridate)
-  
-  #Set up Twitter REST api access (from Graham's account):
-  consumer_key = "key"
-  consumer_secret = "secret"
-  access_token = "token"
-  access_secret = "secret"
-  setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
+  library(stringr)
   
   #remove @ from handles 
-  list_names <- sub("@", "", list_names)
+  list_names <- gsub("@", "", list_names)
+  
+  #turn string list into a list of length 1: chr vector of handles 
+  list_names <- str_split(list_names, ", ")
   
   #error check handle names 
   clean_list = c();
@@ -27,7 +24,7 @@ get_tweets <- function(list_names) {
   }
   
   #create list of best tweets
-  best <- lapply(clean_list, FUN = function(x) {best_tweet(x)})
+  best <- lapply(clean_list[[1]], FUN = function(x) {best_tweet(x)})
   
   #return list?
   return (best)
