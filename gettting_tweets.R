@@ -108,15 +108,22 @@ verify_handle <- function(handle) {
   )
 }
 
-slack_tweets <- function(message){
+curate <- function(list){
+  #import needed package
   library(slackr)
+  
+  #set slack api token 
   token <- 'token here'
+  
+  #set up slack functionality
   slackr_setup(channel = "#bot-test", username = "testbot", api_token = token)
-  text_slackr(message)
+  
+  #send result of get_tweets with desired list to slack channel chosen in call above 
+  text_slackr(get_tweets(list))
 }
 
 
 #script to run w/ cron automation
-slack_tweets("@iXperienceCT, @datawookie, @wuthemasses, @hadleywickham")
+curate("@iXperienceCT, @datawookie, @wuthemasses, @hadleywickham")
 
 
