@@ -1,8 +1,13 @@
 library(slackr)
-slackr_setup(channel = "#bot", username = "testbot", api_token = token)
+token <- 'token here'
+slackr_setup(channel = "#bot-test", username = "testbot", api_token = token)
 slackr_bot(message = "test")
 library(RCurl)
 library(jsonlite)
+
+message <- get_tweets("@cnn, @realdonaldtrump, @wired, ")
+
+text_slackr(message)
 
 
 test1 <- toJSON()
