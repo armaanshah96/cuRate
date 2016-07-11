@@ -47,13 +47,13 @@ curate("@theeconomist, @wired, @cnn, @foxnews, @msnbc, @cspan")
 ```
 5) Set up a [Cron job](http://www.techradar.com/how-to/computing/apple/terminal-101-creating-cron-jobs-1305651) to automate the running of cuRate:
    
-a. Run 'which Rscript' in the terminal. The result will look like: 
+ a. Run 'which Rscript' in the terminal. The result will look like: 
 
   ```
   /usr/local/bin/Rscript
   ```
   
-b. Copy that result into the **first** line of cuRate.R, and prepend with #!:
+ b. Copy that result into the **first** line of cuRate.R, and prepend with #!:
 
   ```
  #!/usr/local/bin/Rscript
