@@ -119,7 +119,7 @@ curate <- function(list){
   library(slackr)
   
   #set slack api token 
-  token <- 'xoxp-54439669399-54536896311-58376864404-c3cfe84a74'
+  token <- ''
   
   #set up slack functionality
   slackr_setup(channel = "#curate", username = "cuRate", api_token = token,  icon_emoji = ":mag:")
