@@ -69,6 +69,7 @@ d. In terminal, run the following command:
   env EDITOR=nano crontab -e
   ```
 e. A new Cron job editor will open. Use [Cron * Syntax](http://www.techradar.com/how-to/computing/apple/terminal-101-creating-cron-jobs-1305651) to set the time cuRate will run. For example, to run cuRate every day at 10 am, use:
+
 ```0 10 * * * ```
     
 f. Folliwing the * scheduling args, input the full file path to cuRate.R. For example:  
