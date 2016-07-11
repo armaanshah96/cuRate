@@ -60,22 +60,25 @@ curate("@theeconomist, @wired, @cnn, @foxnews, @msnbc, @cspan")
   ```
   
 c. Navigate within the terminal to the directory where cuRate.R is stored and run:
+
   ```
- chmod +x cuRate.R
+  chmod +x cuRate.R
   ```
   
 d. In terminal, run the following command: 
+  
   ```
   env EDITOR=nano crontab -e
   ```
+  
 e. A new Cron job editor will open. Use [Cron * Syntax](http://www.techradar.com/how-to/computing/apple/terminal-101-creating-cron-jobs-1305651) to set the time cuRate will run. For example, to run cuRate every day at 10 am, use:
 
-```0 10 * * * ```
+  ```0 10 * * * ```
     
 f. Following the * scheduling args, input the full file path to cuRate.R. For example:  
 
-```
-/Users/Graham/Desktop/OneDrive/School/iXperience/cuRate/cuRate.R
+  ```
+  /Users/Graham/Desktop/OneDrive/School/iXperience/cuRate/cuRate.R
   ```
 
 g. Done! To exit, use the following series of commands:  ```cmd o, enter, cmd x ```
