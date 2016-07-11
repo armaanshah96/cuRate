@@ -23,6 +23,7 @@ Future versions of cuRate will allow user interactivity within slack, starting w
 Follow these steps to set up the current version of cuRate in your slack team:
 
 1) Download the [cuRate.R script](https://github.com/armaanshah96/cuRate/blob/master/cuRate.R)
+
 2) Set up the [Slack](https://api.slack.com/tokens) and [Twitter](https://dev.twitter.com/rest/public) tokens/api keys specific to your accounts by entering them into the following fields of the cuRate.R script:
 ```{r}
 # Set up Twitter REST api access:
@@ -49,6 +50,7 @@ curate("@theeconomist, @wired, @cnn, @foxnews, @msnbc, @cspan")
   ```
   /usr/local/bin/Rscript
   ```
+  
     b. Copy that result into the **first** line of cuRate.R, and prepend with #!:
   ```
  #!/usr/local/bin/Rscript
