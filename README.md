@@ -12,15 +12,15 @@ cuRate reads the desired users' tweets from the past day, and uses an algorithm 
 
 ***
 ####Current Version
-The current version (1.0) requires users of cuRate to download the cuRate.R script, hard-code their own slack team tokens and Twitter API keys, set a list of desired Twitter users to follow, and set up a Cron job to automate the bot on their local machine. 
+The current version (1.0) requires users of cuRate to download the cuRate.R script, hard-code their own Slack team tokens and Twitter API keys, set a list of desired Twitter users to follow, and set up a Cron job to automate the bot on their local machine. 
 
 ***
 ####Future Releases
-Future versions of cuRate will allow user interactivity within slack, starting with slash command implementation and eventually progressing to a full-blown bot user.
+Future versions of cuRate will allow user interactivity within Slack, starting with slash command implementation and eventually progressing to a full-blown bot user.
 
 ***
 ####Installation/Set-Up
-Follow these steps to set up the current version of cuRate in your slack team:
+Follow these steps to set up the current version of cuRate in your Slack team:
 
 1) Download the [cuRate.R script](https://github.com/armaanshah96/cuRate/blob/master/cuRate.R)
 
@@ -72,7 +72,7 @@ e. A new Cron job editor will open. Use [Cron * Syntax](http://www.techradar.com
 
 ```0 10 * * * ```
     
-f. Folliwing the * scheduling args, input the full file path to cuRate.R. For example:  
+f. Following the * scheduling args, input the full file path to cuRate.R. For example:  
 
 ```
 /Users/Graham/Desktop/OneDrive/School/iXperience/cuRate/cuRate.R
