@@ -53,21 +53,29 @@ a. Run 'which Rscript' in the terminal. The result will look like:
   /usr/local/bin/Rscript
   ```
   
-    b. Copy that result into the **first** line of cuRate.R, and prepend with #!:
+b. Copy that result into the **first** line of cuRate.R, and prepend with #!:
+
   ```
  #!/usr/local/bin/Rscript
   ```
-    c. Navigate within the terminal to the directory where cuRate.R is stored and run:
+  
+c. Navigate within the terminal to the directory where cuRate.R is stored and run:
   ```
  chmod +x cuRate.R
   ```
-    d. In terminal, run the following command: 
-      ```
- env EDITOR=nano crontab -e
+  
+d. In terminal, run the following command: 
   ```
-    e. A new Cron job editor will open. Use [Cron * Syntax](http://www.techradar.com/how-to/computing/apple/terminal-101-creating-cron-jobs-1305651) to set the time cuRate will run. For example, to run cuRate every day at 10 am, use  ```0 10 * * * ```
-    f. Folliwing the * scheduling args, input the full file path to cuRate.R. For example:  ```
+  env EDITOR=nano crontab -e
+  ```
+e. A new Cron job editor will open. Use [Cron * Syntax](http://www.techradar.com/how-to/computing/apple/terminal-101-creating-cron-jobs-1305651) to set the time cuRate will run. For example, to run cuRate every day at 10 am, use:
+```0 10 * * * ```
+    
+f. Folliwing the * scheduling args, input the full file path to cuRate.R. For example:  
+
+```
 /Users/Graham/Desktop/OneDrive/School/iXperience/cuRate/cuRate.R
   ```
-    g. Done! To exit, use the following series of commands:  ```cmd o, enter, cmd x ```
+
+g. Done! To exit, use the following series of commands:  ```cmd o, enter, cmd x ```
     
